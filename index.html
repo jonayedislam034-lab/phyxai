@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PhysioAI — clinical intelligence and study tools for physiotherapy." />
+  <title>PhysioAI | Clinical intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#general" aria-label="PhysioAI home"><span class="brand-mark">P</span><span>physio<span>AI</span></span></a>
+    <nav class="tabs" aria-label="Primary navigation">
+      <button class="tab active" data-section="general">General</button>
+      <button class="tab" data-section="physio">Physio Tech</button>
+      <button class="tab" data-section="students">Students</button>
+    </nav>
+    <button class="icon-button settings-trigger" aria-label="Open API settings" title="API settings">⚙</button>
+  </header>
+
+  <main>
+    <section id="general" class="section active-section">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> Evidence, translated</p>
+          <h1>Clinical intelligence<br />for the <em>curious</em> clinician.</h1>
+          <p class="lede">A focused desk for medical breakthroughs, thoughtful AI consultation, and better physiotherapy practice.</p>
+          <div class="hero-actions"><button class="primary-button" data-go="physio">Explore clinical tools <b>→</b></button><button class="text-button" data-go="students">Study hub <b>↗</b></button></div>
+        </div>
+        <aside class="hero-note"><p class="note-kicker">TODAY'S BRIEF</p><p>Health care is getting more personal, predictive, and participatory.</p><small>Curated signals from clinical research &amp; health technology</small></aside>
+      </div>
+      <div class="section-heading"><div><p class="eyebrow"><span></span> Live signal</p><h2>Medical news, without the noise.</h2></div><button class="outline-button" id="refresh-news">↻ Refresh feed</button></div>
+      <div id="news-status" class="quiet-status">Loading research and health technology updates…</div>
+      <div id="news-grid" class="news-grid" aria-live="polite"></div>
+      <section class="council-panel">
+        <div class="council-intro"><p class="eyebrow"><span></span> AI media council</p><h2>Bring a question.<br /><em>Hear the room.</em></h2><p>Ask your configured clinical AI providers in parallel, then compare their perspectives.</p><div class="provider-dots"><span>O</span><span>◈</span><span>G</span><span>Z</span><small id="provider-count">No providers connected</small></div></div>
+        <div class="chat-shell"><div id="chat-log" class="chat-log"><div class="assistant-message"><span class="message-avatar">✦</span><div><b>Council desk</b><p>What clinical topic would you like to investigate? Add an API key in Settings to consult an AI provider.</p></div></div></div><form id="council-form" class="chat-input"><input id="council-query" aria-label="Ask the AI council" placeholder="Ask about a study, intervention, or clinical question…" autocomplete="off" /><button class="send-button" aria-label="Send question">↑</button></form></div>
+      </section>
+    </section>
+
+    <section id="physio" class="section">
+      <div class="page-intro"><p class="eyebrow"><span></span> Clinical tools</p><h1>Observe more.<br /><em>Reason clearly.</em></h1><p>Private, browser-based tools that support—not replace—clinical judgement.</p></div>
+      <div class="clinical-grid">
+        <article class="gait-card"><div class="tool-label"><span class="tool-icon">⌁</span><span>AI Gait Analysis</span><span class="privacy-pill">Local processing</span></div><h2>Movement in context.</h2><p>Use your camera for live pose landmarks and a preliminary gait-pattern screen. Video stays on this device.</p><div class="video-stage"><video id="gait-video" playsinline muted></video><canvas id="gait-canvas"></canvas><div id="camera-placeholder" class="camera-placeholder"><span>◉</span><b>Camera is off</b><small>Start a private movement screen</small></div><div class="metric-readout"><span id="gait-fps">— FPS</span><span id="gait-phase">Awaiting movement</span></div></div><div class="gait-controls"><button id="start-camera" class="primary-button">Enable camera <b>→</b></button><button id="stop-camera" class="outline-button" disabled>Stop</button></div><div id="gait-result" class="gait-result"><span>SCREENING RESULT</span><b>Awaiting a walking sequence</b><p>Capture 5–10 seconds of side-view walking for a preliminary pattern match.</p></div></article>
+        <article class="assessment-card"><div class="tool-label"><span class="tool-icon">✣</span><span>AI Assessment</span></div><h2>Turn findings into a sharper plan.</h2><p>Structure the clinical picture, then ask your connected council for differential considerations and treatment ideas.</p><form id="assessment-form"><label>Assessment area<select id="assessment-category"><option value="Cardio">Cardio</option><option value="Orthopaedic" selected>Orthopaedic</option><option value="Neurology">Neurology</option><option value="Pediatric">Pediatric</option><option value="PMRT">PMRT</option></select></label><label>Patient presentation<textarea id="assessment-findings" rows="5" placeholder="Age, chief concern, history, relevant examination findings, goals…"></textarea></label><button class="primary-button full-button">Generate clinical considerations <b>→</b></button></form><div id="assessment-result" class="assessment-result" aria-live="polite"></div><p class="disclaimer">Educational decision support only. Always use independent clinical judgement and local guidelines.</p></article>
+      </div>
+      <section class="gait-reference"><p class="eyebrow"><span></span> Reference library</p><h2>Pattern library</h2><p>25 common abnormal gait patterns are included in the local screening reference.</p><div id="gait-tags" class="tag-cloud"></div></section>
+    </section>
+
+    <section id="students" class="section">
+      <div class="page-intro student-intro"><p class="eyebrow"><span></span> Student desk</p><h1>Learn with <em>intention.</em></h1><p>Core physiotherapy references and an AI-assisted space to turn topics into a study session.</p></div>
+      <div class="library-toolbar"><div class="segmented" role="group" aria-label="Programme"><button class="library-level active" data-level="BPT">BPT</button><button class="library-level" data-level="MPT">MPT</button></div><label class="search-box"><span>⌕</span><input id="book-search" placeholder="Search subjects or titles" /></label></div>
+      <div id="book-library" class="book-library"></div>
+      <section class="study-lab"><div class="study-copy"><p class="eyebrow"><span></span> AI note studio</p><h2>One topic.<br /><em>A useful study plan.</em></h2><p>Generate a structured note, revision prompts, and a video script. Add a YouTube API key to surface a relevant lecture.</p></div><div><form id="study-form" class="study-search"><input id="study-topic" placeholder="e.g. Gait cycle biomechanics" /><button class="primary-button">Create study set <b>→</b></button></form><div id="study-result" class="study-result"></div></div></section>
+    </section>
+  </main>
+  <footer><span>physioAI</span><p>Made for curious physiotherapy minds · All camera processing happens locally.</p><button class="settings-trigger">Settings</button></footer>
+
+  <dialog id="settings-modal"><div class="modal-heading"><div><p class="eyebrow"><span></span> Your browser, your keys</p><h2>Connection settings</h2></div><button id="close-settings" class="icon-button" aria-label="Close settings">×</button></div><p class="modal-copy">Keys are saved only in this browser’s local storage. Direct browser calls may expose keys to the providers you select; use restricted keys where possible.</p><form id="settings-form" class="settings-form"><label>OpenAI API key<input type="password" data-key="openai" placeholder="sk-…" /></label><label>Anthropic API key<input type="password" data-key="anthropic" placeholder="sk-ant-…" /></label><label>Google Gemini API key<input type="password" data-key="gemini" placeholder="AIza…" /></label><label>GLM / Zhipu API key<input type="password" data-key="glm" placeholder="Your API key" /></label><label>YouTube Data API v3 key<input type="password" data-key="youtube" placeholder="AIza…" /></label><div class="modal-actions"><button type="button" id="clear-keys" class="text-button">Clear local keys</button><button class="primary-button">Save settings <b>→</b></button></div></form></dialog>
+  <template id="news-template"><article class="news-card"><div class="news-meta"><span class="news-source"></span><span class="news-date"></span></div><h3></h3><p></p><a target="_blank" rel="noopener">Read update <b>↗</b></a></article></template>
+  <script src="data.js"></script><script src="gait-analysis.js"></script><script src="app.js"></script>
+</body>
+</html>
